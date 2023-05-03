@@ -1,19 +1,20 @@
 import './Home.css';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useLoaderData, useParams, useNavigate, Navigate } from 'react-router-dom';
+
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const Home = () => {
+  let navigate = useNavigate();
   return (
     <div className="homepage">
       <div className="container-fluid">
         <div class="row">
           <div class="col-md-6">
             <div className="title-text">
-              <div className="border border-dark ">
-                <h1>We connect you to the care you need.</h1>
-              </div>
+              <h1>We connect you to the care you need.</h1>
               <p >
                 ConnectedSpine uses the knowledge of spine care specialists to guide
                 you to the right providers.
@@ -24,9 +25,9 @@ const Home = () => {
               <p ><b>Take our 5 min assessment.</b></p>
 
             </div>
-            <button className="btn btn-light start-assessment-button">
+            <Button className="btn btn-light start-assessment-button" onClick={() => navigate('/zipcode')}>
               Start Assessment
-            </button>
+            </Button>
           </div>
         </div>
       </div>
