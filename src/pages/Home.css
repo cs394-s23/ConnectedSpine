@@ -12,10 +12,21 @@
 
 .title-text{
     margin-left: 5vw;
-    margin-top: 20vh;
+    margin-top: 10vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: lighter;
 }
 
 .instructions{
     margin-left: 5vw;
     margin-top: 20vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: lighter;
+}
+
+.start-assessment-button {
+    margin-left: 5vw;
+    /* margin-right: 880px; */
+    min-width: 250px;
+    max-width: 250px;
 }
