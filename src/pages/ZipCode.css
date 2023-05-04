@@ -6,3 +6,15 @@
   font-family: 'Inter', sans-serif;
   font-weight: lighter;
 }
+
+.zip-code-section {
+  background-image: url("../../ZipcodePage.png");
+  background-repeat:no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.back-next-buttons button {
+  margin-right: 10px;
+}
