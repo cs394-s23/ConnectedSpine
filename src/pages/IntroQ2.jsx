@@ -9,26 +9,44 @@ import {
   BackNextButtonContainer,
 } from '../styles';
 import Header from '../components/Header';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
+import { FaUser, FaUsers } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
 // import "bootstrap-icons/font/bootstrap-icons.css";
 
-const Card = ({ buttonclick }) => {
+const Card = ({ myselfButton, someoneElseButton, myselfButtonClick, someoneElseButtonClick }) => {
   return (
-    <div class="container">
+    <div class="container d-flex justify-content-center">
       <div class="row">
         <div class="col-md-6">
-          <div class="card card-square">
-            <div class="card-body text-center">
-              <button class="btn btn-light btn-large" onClick={buttonclick}> Myself</button>
+          <div class="card card-square" style={{ height: '200px', backgroundColor: myselfButton ? '#CBC3E3' : null }}>
+            <div class="card-body d-flex flex-column justify-content-end">
+            <IconContext.Provider value={{ size: '2em', color: myselfButton ? '#000' : '#888' }}>
+                <div>
+                  <button class="btn btn-light btn-large" onClick={myselfButtonClick}>
+                  <span><FaUser /></span> Myself
+                  </button>
+                </div>
+              </IconContext.Provider>
             </div>
           </div>
         </div>
         <div class="col-md-6">
-          <div class="card card-square">
-            <div class="card-body text-center">
-              <button class="btn btn-light btn-large" onClick={buttonclick}> Someone Else</button>
+          <div class="card card-square" style={{ height: '200px', backgroundColor: someoneElseButton ? '#CBC3E3' : null }}>
+            <div class="card-body d-flex flex-column justify-content-end">
+            <IconContext.Provider value={{ size: '2em', color: someoneElseButton ? '#000' : '#888' }}>
+                <div>
+                  <button class="btn btn-light btn-large" onClick={someoneElseButtonClick}>
+                    <span><FaUsers /></span> Someone Else
+                  </button>
+                </div>
+              </IconContext.Provider>
+              {/* <button class="btn btn-light btn-large" onClick={someoneElseButtonClick}>
+                {' '}
+                Someone Else
+              </button> */}
             </div>
           </div>
         </div>
@@ -39,11 +57,28 @@ const Card = ({ buttonclick }) => {
 const IntroQ2 = () => {
   let navigate = useNavigate();
 
-
+  const [myselfButton, setMyselfButton] = useState(false);
+  const [someoneElseButton, setSomeoneElseButton] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  function handleButtonClick() {
-    setIsValid(!isValid);
+
+  const myselfButtonClick = () => {
+    setMyselfButton(prevMyselfButton => !prevMyselfButton);
+    setSomeoneElseButton(false); // reset the other button state
   }
+  
+  const someoneElseButtonClick = () => {
+    setSomeoneElseButton(prevSomeoneElseButton => !prevSomeoneElseButton);
+    setMyselfButton(false); // reset the other button state
+  }
+  
+  useEffect(() => {
+    if ((myselfButton && !someoneElseButton) || (!myselfButton && someoneElseButton)) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [myselfButton, someoneElseButton]);
+
   const handleBackClick = () => {
     navigate('/termsagreement');
   };
@@ -64,7 +99,7 @@ const IntroQ2 = () => {
             <h1>Who are you answering this questionnaire for?</h1>
           </LeftContent>
           <RightContent>
-            <Card buttonclick={handleButtonClick} />
+            <Card myselfButton={myselfButton} someoneElseButton={someoneElseButton} myselfButtonClick={myselfButtonClick} someoneElseButtonClick={someoneElseButtonClick} />
             <BackNextButtonContainer>
               <BackButton onClick={handleBackClick}>Back</BackButton>
               <NextButton isValid={isValid} onClick={handleNextClick}>
@@ -74,7 +109,7 @@ const IntroQ2 = () => {
           </RightContent>
         </ContentContainer>
       </Content>
-    </Background >
+    </Background>
   );
 };
 export default IntroQ2;
