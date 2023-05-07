@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import ZipCode from './pages/ZipCode';
 import BasicInfo from './pages/TermsAgreement';
 import IntroQ2 from './pages/IntroQ2';
-import IntroQ3 from './pages/IntroQ2';
+import IntroQ3 from './pages/IntroQ3';
 
 const App = () => {
   return (

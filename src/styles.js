@@ -69,3 +69,21 @@ export const Link = styled.a`
   color: #665e5b;
   cursor: pointer;
 `;
+
+export const SelectButton = styled.button`
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 10px;
+  padding: 10px 30px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 200px;
+  height: 60px;
+  &:hover {
+    background-color: rgba(128, 0, 128, 0.8);
+    color: #ffffff;
+  }
+`;
