@@ -65,32 +65,32 @@ const Questionaire = () => {
     selectedOptions,
     setSelectedOptions,
     key,
-    setKey
+    setKey,
   } = useContext(AssessmentContext);
 
   const handleBackClick = () => {
     if (currQuestion === 0) {
       setAssessmentState('zipcode');
-      setIsValid(true)
+      setIsValid(true);
     } else {
       if (currSubQuestion == 0) {
         setCurrQuestion(currQuestion - 1);
         if (Questions[currQuestion].sub_questions) {
           setCurrSubQuestion(Questions[currQuestion].sub_questions.length - 1);
-          setKey(currQuestion + '' + currSubQuestion)
+          setKey(currQuestion + '-' + currSubQuestion);
         } else {
           setCurrSubQuestion(0);
-          setKey(currQuestion + '' + currSubQuestion)
+          setKey(currQuestion + '-' + currSubQuestion);
         }
       } else {
         setCurrSubQuestion(currSubQuestion - 1);
-        setKey(currQuestion + '' + currSubQuestion)
+        setKey(currQuestion + '-' + currSubQuestion);
       }
     }
   };
 
   const handleNextClick = () => {
-    console.log("selected_options", selectedOptions[key])
+    console.log('selected_options', selectedOptions[key]);
     if (
       currQuestion === Questions.length - 1 &&
       currSubQuestion === Questions[currQuestion].sub_questions.length - 1
@@ -99,19 +99,27 @@ const Questionaire = () => {
     } else if (isValid) {
       setIsValid(false);
       if (
-        currSubQuestion === Questions[currQuestion].sub_questions.length - 1
+        currSubQuestion ===
+        Questions[currQuestion].sub_questions.length - 1
       ) {
+        console.log('currQuestion1', currQuestion);
         setCurrQuestion(currQuestion + 1);
+        console.log('currQuestion2', currQuestion);
         setCurrSubQuestion(0);
-        setKey(currQuestion + '' + currSubQuestion)
+        setKey(currQuestion + '' + currSubQuestion);
         setSelectedOptions({ ...selectedOptions, key: [] });
       } else {
         setCurrSubQuestion(currSubQuestion + 1);
-        setKey(currQuestion + '' + currSubQuestion)
+        setKey(currQuestion + '' + currSubQuestion);
         setSelectedOptions({ ...selectedOptions, key: [] });
       }
     }
   };
+
+  // break key apart (separate from dashes)
+  // call on Questions.jsx (first before dash to get question number)
+  // second after dash to get subquestion (0 means no subquestion)
+  // pass array of selected options into Options
 
   return (
     <Background image="../../pages.jpg">
@@ -128,7 +136,6 @@ const Questionaire = () => {
             {currQuestion === 1 && <Q2 />}
             {currQuestion === 2 && <Q3 />} */}
             <OptionsContainer>
-
               <SubQuestion>
                 <Bold>
                   {Questions[currQuestion].sub_questions[currSubQuestion]}

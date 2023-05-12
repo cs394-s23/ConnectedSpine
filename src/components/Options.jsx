@@ -14,7 +14,8 @@ const Options = ({
   currQuestionType,
 }) => {
   const { isValid, setIsValid } = useContext(AssessmentContext);
-  const { selectedOptions, setSelectedOptions, key, setKey } = useContext(AssessmentContext);
+  const { selectedOptions, setSelectedOptions, key, setKey } =
+    useContext(AssessmentContext);
   console.log(`currQuestionType: ${currQuestionType}`);
 
   const HandleOnclick = (event) => {
@@ -22,26 +23,28 @@ const Options = ({
     const selected_value = event.currentTarget.getAttribute('value');
 
     if (selectedOptions[key].includes(selected_value)) {
-      setSelectedOptions(
-        {
-          ...selectedOptions, [key]:
-            selectedOptions[key].filter((option) => option !== selected_value)
-        })
-        ;
+      setSelectedOptions({
+        ...selectedOptions,
+        [key]: selectedOptions[key].filter(
+          (option) => option !== selected_value
+        ),
+      });
     } else {
       if (currQuestionType == 'Select' || currQuestionType == 'Selectbutton') {
         setSelectedOptions({ ...selectedOptions, key: [selected_value] });
         //setSelectedOptions({ ...selectedOptions });
-
       } else {
-        setSelectedOptions({ ...selectedOptions, key: selectedOptions[key].push(selected_value) });
+        setSelectedOptions({
+          ...selectedOptions,
+          key: selectedOptions[key].push(selected_value),
+        });
         //setSelectedOptions({ ...selectedOptions });
       }
       setIsValid(true);
     }
   };
-  console.log(JSON.stringify(selectedOptions))
-  console.log("key", key)
+  console.log(JSON.stringify(selectedOptions));
+  console.log('key', key);
   if (selectedOptions[key].length === 0) {
     setIsValid(false);
   }
