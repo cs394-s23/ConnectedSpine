@@ -1,26 +1,27 @@
 const Questions = [
-  {
-    section: 1,
-    section_name: 'Basic Info',
-    prompt: 'Terms of Service',
-    type: null,
-  },
-  {
-    section: 1,
-    section_name: 'Basic Info',
-    prompt: 'Who are you answering this questionaire for?',
-    type: null,
-  },
-  {
-    section: 1,
-    section_name: 'Basic Info',
-    prompt: "Let's get some basic info about you first.",
-    type: null,
-  },
+  // {
+  //   section: 1,
+  //   section_name: 'Basic Info',
+  //   prompt: 'Terms of Service',
+  //   type: null,
+  // },
+  // {
+  //   section: 1,
+  //   section_name: 'Basic Info',
+  //   prompt: 'Who are you answering this questionaire for?',
+  //   type: null,
+  // },
+  // {
+  //   section: 1,
+  //   section_name: 'Basic Info',
+  //   prompt: "Let's get some basic info about you first.",
+  //   type: null,
+  // },
   {
     section: 1,
     section_name: 'Basic Info',
     prompt: 'What brings you here today?',
+    sub_questions: [''],
     options: [
       `A new pain or sensation in the back and/or neck`,
       'Back and/or neck pain that has been chronic or occuring for some time',
@@ -32,6 +33,7 @@ const Questions = [
     section: 1,
     section_name: 'Basic Info',
     prompt: 'Do any of the following apply?',
+    sub_questions: [''],
     options: [
       'I have fallen recently',
       'I lifted something heavy (moving, picking up children, weightligting, etc.',
@@ -45,6 +47,7 @@ const Questions = [
     section: 1,
     section_name: 'Basic Info',
     prompt: 'Did your symptoms start after the incident?',
+    sub_questions: [''],
     options: ['Yes', 'No', 'Not sure'],
     type: 'Select',
   },
@@ -53,6 +56,7 @@ const Questions = [
     section_name: 'Symptoms',
     prompt: 'How long have you been experiencing these symptoms?',
     options: ['A few minutes', 'A few hours', 'A few days', 'Weeks', 'Month +'],
+    sub_questions: [''],
     type: 'Select',
   },
   {
@@ -60,6 +64,7 @@ const Questions = [
     section_name: 'Symptoms',
     prompt: 'Choose the area(s) where you are feeling pain and/or discomfort.',
     options: ['Neck', 'Upper Back', 'Middle Back', 'Lower Back'],
+    sub_questions: [''],
     type: 'Multibutton',
   },
   {
@@ -67,12 +72,14 @@ const Questions = [
     section_name: 'Symptoms',
     prompt: 'Where are you feeling pain/discomfort in your lower back?',
     options: ['ON THE LEFT', 'IN THE MIDDLE', 'ON THE RIGHT'],
+    sub_questions: [''],
     type: 'Multibutton',
   },
   {
     section: 2,
     section_name: 'Symptoms',
     prompt: 'How would you describe the sensation you are feeling?',
+    sub_questions: [''],
     options: [
       'SHARP PAIN',
       'SHOOTING PAIN',

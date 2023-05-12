@@ -14,28 +14,35 @@ const Options = ({
   currQuestionType,
 }) => {
   const { isValid, setIsValid } = useContext(AssessmentContext);
-  const { selectedOptions, setSelectedOptions } = useContext(AssessmentContext);
+  const { selectedOptions, setSelectedOptions, key, setKey } = useContext(AssessmentContext);
   console.log(`currQuestionType: ${currQuestionType}`);
 
   const HandleOnclick = (event) => {
     // const selected_value = parseInt(event.currentTarget.id);
     const selected_value = event.currentTarget.getAttribute('value');
 
-    if (selectedOptions.includes(selected_value)) {
+    if (selectedOptions[key].includes(selected_value)) {
       setSelectedOptions(
-        selectedOptions.filter((option) => option !== selected_value)
-      );
+        {
+          ...selectedOptions, [key]:
+            selectedOptions[key].filter((option) => option !== selected_value)
+        })
+        ;
     } else {
       if (currQuestionType == 'Select' || currQuestionType == 'Selectbutton') {
-        setSelectedOptions([selected_value]);
+        setSelectedOptions({ ...selectedOptions, key: [selected_value] });
+        //setSelectedOptions({ ...selectedOptions });
+
       } else {
-        setSelectedOptions(selectedOptions.concat(selected_value));
+        setSelectedOptions({ ...selectedOptions, key: selectedOptions[key].push(selected_value) });
+        //setSelectedOptions({ ...selectedOptions });
       }
       setIsValid(true);
     }
   };
-
-  if (selectedOptions.length === 0 && currQuestion > 2) {
+  console.log(JSON.stringify(selectedOptions))
+  console.log("key", key)
+  if (selectedOptions[key].length === 0) {
     setIsValid(false);
   }
 
@@ -45,7 +52,7 @@ const Options = ({
         return (
           <Select
             options={options}
-            selectedOptions={selectedOptions}
+            selectedOptions={selectedOptions[key]}
             HandleOnclick={HandleOnclick}
           />
         );
@@ -53,7 +60,7 @@ const Options = ({
         return (
           <MultiSelect
             options={options}
-            selectedOptions={selectedOptions}
+            selectedOptions={selectedOptions[key]}
             HandleOnclick={HandleOnclick}
           />
         );
@@ -61,7 +68,7 @@ const Options = ({
         return (
           <MultiButton
             options={options}
-            selectedOptions={selectedOptions}
+            selectedOptions={selectedOptions[key]}
             HandleOnclick={HandleOnclick}
           />
         );
@@ -69,7 +76,7 @@ const Options = ({
         return (
           <SingleButton
             options={options}
-            selectedOptions={selectedOptions}
+            selectedOptions={selectedOptions[key]}
             HandleOnclick={HandleOnclick}
           />
         );

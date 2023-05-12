@@ -11,7 +11,9 @@ import { useDbData } from './utilities/firebase';
 const App = () => {
   const [AssessmentState, setAssessmentState] = useState('home');
   const [isValid, setIsValid] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState({ '00': [] });
+  const [key, setKey] = useState('00')
+  const [zipCode, setZipCode] = useState('')
 
   const [data, error] = useDbData('/');
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
@@ -33,6 +35,9 @@ const App = () => {
         setIsValid,
         selectedOptions,
         setSelectedOptions,
+        zipCode, setZipCode,
+        key, setKey
+
       }}
     >
       {AssessmentState === 'home' && <Home />}

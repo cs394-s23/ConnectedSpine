@@ -52,7 +52,7 @@ function isValidUSZip(zip) {
 const ZipCode = () => {
   const { setAssessmentState } = useContext(AssessmentContext);
   const { isValid, setIsValid } = useContext(AssessmentContext);
-  const [zipCode, setZipCode] = useState('');
+  const { zipCode, setZipCode } = useContext(AssessmentContext);
   const [showModal, setShowModal] = useState(false);
 
   const user = getAuth().currentUser;

@@ -64,26 +64,33 @@ const Questionaire = () => {
     setIsValid,
     selectedOptions,
     setSelectedOptions,
+    key,
+    setKey
   } = useContext(AssessmentContext);
 
   const handleBackClick = () => {
     if (currQuestion === 0) {
       setAssessmentState('zipcode');
+      setIsValid(true)
     } else {
-      if (!Questions[currQuestion].sub_questions || currSubQuestion == 0) {
+      if (currSubQuestion == 0) {
         setCurrQuestion(currQuestion - 1);
         if (Questions[currQuestion].sub_questions) {
           setCurrSubQuestion(Questions[currQuestion].sub_questions.length - 1);
+          setKey(currQuestion + '' + currSubQuestion)
         } else {
           setCurrSubQuestion(0);
+          setKey(currQuestion + '' + currSubQuestion)
         }
       } else {
         setCurrSubQuestion(currSubQuestion - 1);
+        setKey(currQuestion + '' + currSubQuestion)
       }
     }
   };
 
   const handleNextClick = () => {
+    console.log("selected_options", selectedOptions[key])
     if (
       currQuestion === Questions.length - 1 &&
       currSubQuestion === Questions[currQuestion].sub_questions.length - 1
@@ -92,15 +99,16 @@ const Questionaire = () => {
     } else if (isValid) {
       setIsValid(false);
       if (
-        !Questions[currQuestion].sub_questions ||
         currSubQuestion === Questions[currQuestion].sub_questions.length - 1
       ) {
         setCurrQuestion(currQuestion + 1);
         setCurrSubQuestion(0);
-        setSelectedOptions([]);
+        setKey(currQuestion + '' + currSubQuestion)
+        setSelectedOptions({ ...selectedOptions, key: [] });
       } else {
         setCurrSubQuestion(currSubQuestion + 1);
-        setSelectedOptions([]);
+        setKey(currQuestion + '' + currSubQuestion)
+        setSelectedOptions({ ...selectedOptions, key: [] });
       }
     }
   };
@@ -116,17 +124,17 @@ const Questionaire = () => {
             <Prompt>{Questions[currQuestion].prompt}</Prompt>
           </LeftContent>
           <RightContent>
-            {currQuestion === 0 && <TermsAgreement />}
+            {/* {currQuestion === 0 && <TermsAgreement />}
             {currQuestion === 1 && <Q2 />}
-            {currQuestion === 2 && <Q3 />}
+            {currQuestion === 2 && <Q3 />} */}
             <OptionsContainer>
-              {Questions[currQuestion].sub_questions && (
-                <SubQuestion>
-                  <Bold>
-                    {Questions[currQuestion].sub_questions[currSubQuestion]}
-                  </Bold>
-                </SubQuestion>
-              )}
+
+              <SubQuestion>
+                <Bold>
+                  {Questions[currQuestion].sub_questions[currSubQuestion]}
+                </Bold>
+              </SubQuestion>
+
               <Options
                 currQuestion={currQuestion}
                 currSubQuestion={currSubQuestion}
