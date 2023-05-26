@@ -18,20 +18,24 @@ import {
   Save,
 } from './styles';
 import { useDbUpdate } from '../../utilities/firebase';
+import { getAuth } from 'firebase/auth';
 
 const Providers = ({ resultIndex, data }) => {
   const diagnosis = [];
-  const dateToday = data['results']
-  console.log("DateToday", dateToday)
-  const [answerUpdate, answerResult] = useDbUpdate(`/answers/${dateToday}/answers`);
+  const user = getAuth().currentUser;
+  const dateTodayLength = data[user['uid']]['results'].length;
+  const dateToday = data[user['uid']]['results'][dateTodayLength - 1];
+  console.log('DateToday', dateToday);
+  const [answerUpdate, answerResult] = useDbUpdate(
+    `/answers/${dateToday}/answers`
+  );
 
   resultIndex.map((index) => {
     diagnosis.push(ResultDetails[index]);
   });
   answerUpdate({
-    diagnosis: diagnosis
+    diagnosis: diagnosis,
   });
-
 
   return (
     <Container>
@@ -46,9 +50,9 @@ const Providers = ({ resultIndex, data }) => {
         <Recomended>Recommended providers</Recomended>
         <Cards>
           {diagnosis.includes('Metastatic disease') ||
-            diagnosis.includes('Infection') ||
-            diagnosis.includes('Cauda Equina') ||
-            diagnosis.includes('Myocardial Ischemia') ? (
+          diagnosis.includes('Infection') ||
+          diagnosis.includes('Cauda Equina') ||
+          diagnosis.includes('Myocardial Ischemia') ? (
             <InfoCard
               icon={faHospital}
               provider={'ER/Urgent Care'}
@@ -67,7 +71,7 @@ const Providers = ({ resultIndex, data }) => {
             />
           ) : null}
           {diagnosis.includes('Myelopathy') ||
-            diagnosis.includes('Lumbar Stenosis') ? (
+          diagnosis.includes('Lumbar Stenosis') ? (
             <InfoCard
               icon={faUserDoctor}
               provider={'Neurosurgeon'}
@@ -84,7 +88,7 @@ const Providers = ({ resultIndex, data }) => {
             />
           ) : null}
           {diagnosis.includes('Lumbar Radiculopathy') ||
-            diagnosis.includes('Facet Arthropathy') ? (
+          diagnosis.includes('Facet Arthropathy') ? (
             <InfoCard
               icon={faPerson}
               provider={'Interventional Pain Physician'}

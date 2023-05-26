@@ -69,8 +69,8 @@ const Result = ({ data }) => {
     !resultIndex.includes(7) ? setResultIndex(resultIndex.concat(7)) : null;
   }
 
-  resultIndex.map((index) => { });
-  console.log("DateTodayResults", dateToday)
+  resultIndex.map((index) => {});
+  // console.log("DateTodayResults", dateToday)
   return (
     <Background image="../../results.jpg">
       <Header />
